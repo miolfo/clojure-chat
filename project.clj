@@ -10,7 +10,8 @@
                  [cljs-http "0.1.45"]
                  [org.clojure/core.async "0.4.474"]
                  [com.cemerick/piggieback "0.2.2"]
-                 [enfocus "2.1.1"]]
+                 [enfocus "2.1.1"]
+                 [cljs-ajax "0.7.3"]]
   :plugins [
             [lein-ring "0.9.7"]
             [lein-cljsbuild "1.1.7"]]
