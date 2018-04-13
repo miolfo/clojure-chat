@@ -16,14 +16,26 @@
 (defn send-message [request]
   (str (:multipart-params request)))
 
-(defroutes app-routes
-  (GET "/" [] "Hello World")
+(defroutes api-routes
   (GET "/messages" []
     (rr/response (parse-message-string)))
   (POST "/sendmessage" request (send-message request))
-  (route/not-found "Not Found"))
+  (route/not-found "404 Not Found"))
+
+(defroutes html-routes 
+  (GET "/login" [] 
+    (rr/resource-response "login.html" {:root "public"}))
+  (GET "/chat" []
+    (rr/resource-response "chat.html" {:root "public"})))
+
+(defn wrap-dir-index [handler]
+  (fn [req]
+    (handler
+      (update-in req [:uri]
+                #(if (= "/" %) "/login.html" %)))))
 
 (def app
-  (-> app-routes
-      (ring-json/wrap-json-response)
-      (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
+  (routes (-> html-routes)
+          (-> api-routes
+            (ring-json/wrap-json-response)
+            (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false)))))
