@@ -14,13 +14,13 @@
   (clojure.string/join "<br>" (map #(str (:sender %) ": " (:message %)) (get-messages))))
 
 (defn send-message []
-  (println "MEssage Sent!"))
+  (str "Message Sent!"))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
   (GET "/messages" []
     (rr/response (parse-message-string)))
-  (POST "/sendmessage" [] "asd")
+  (POST "/sendmessage" request (send-message))
   (route/not-found "Not Found"))
 
 (def app

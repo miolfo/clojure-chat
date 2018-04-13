@@ -7,8 +7,13 @@
             [cljs.core.async :refer [<!]]
             [ajax.core :refer [GET POST]]))
 
-(defn submit-message [] 
-  (POST "/sendmessage"))
+(defn handle-message-sent [response]
+  (.log js/console response))
+
+(defn submit-message [evt]
+  (.preventDefault evt)
+  (POST "/sendmessage" 
+    {:handler handle-message-sent}))
 
 (defn ^:export init []
   (repl/connect "http://localhost:9000/repl")
