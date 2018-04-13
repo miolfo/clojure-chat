@@ -28,12 +28,6 @@
   (GET "/chat" []
     (rr/resource-response "chat.html" {:root "public"})))
 
-(defn wrap-dir-index [handler]
-  (fn [req]
-    (handler
-      (update-in req [:uri]
-                #(if (= "/" %) "/login.html" %)))))
-
 (def app
   (routes (-> html-routes)
           (-> api-routes
