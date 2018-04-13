@@ -5,6 +5,7 @@
             [enfocus.core :as ef]
             [enfocus.events :as ev]            
             [cljs.core.async :refer [<!]]
+            [ajax.formats :refer [raw-response-format]]
             [ajax.core :refer [GET POST]]))
 
 (defn handle-message-sent [response]
@@ -13,7 +14,10 @@
 (defn submit-message [evt]
   (.preventDefault evt)
   (POST "/sendmessage" 
-    {:handler handle-message-sent}))
+    { :body (js/FormData. (.querySelector js/document "form"))
+      :handler handle-message-sent
+      ;:response-format (raw-response-format)
+      :keywords? true}))
 
 (defn ^:export init []
   (repl/connect "http://localhost:9000/repl")
