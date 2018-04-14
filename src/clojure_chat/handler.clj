@@ -23,7 +23,7 @@
   (route/not-found "404 Not Found"))
 
 (defroutes html-routes 
-  (GET "/login" [] 
+  (GET "/" [] 
     (rr/resource-response "login.html" {:root "public"}))
   (GET "/chat" []
     (rr/resource-response "chat.html" {:root "public"})))

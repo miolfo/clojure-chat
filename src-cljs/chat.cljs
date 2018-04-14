@@ -1,4 +1,4 @@
-(ns clojure-chat.core
+(ns clojure-chat.chat
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [clojure.browser.repl :as repl]
             [cljs-http.client :as http]
@@ -16,7 +16,6 @@
   (POST "/sendmessage" 
     { :body (js/FormData. (.querySelector js/document "form"))
       :handler handle-message-sent
-      ;:response-format (raw-response-format)
       :keywords? true}))
 
 (defn ^:export init []
