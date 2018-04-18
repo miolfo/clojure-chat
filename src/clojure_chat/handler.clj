@@ -6,11 +6,11 @@
             [ring.middleware.json :as ring-json]
             [ring.util.response :as rr]))
 
-(defn get-messages [] 
+(defn get-messages []
   [{:sender "Hessu Hopo" :message "Hello world"}
-  {:sender "Mikki Hiiri" :message "No morjens"}])
+  {:sender "Mikki Hiiri" :message "No morjens vaa"}])
 
-(defn parse-message-string [] 
+(defn parse-message-string []
   (clojure.string/join "<br>" (map #(str (:sender %) ": " (:message %)) (get-messages))))
 
 (defn send-message [request]
@@ -22,8 +22,8 @@
   (POST "/sendmessage" request (send-message request))
   (route/not-found "404 Not Found"))
 
-(defroutes html-routes 
-  (GET "/" [] 
+(defroutes html-routes
+  (GET "/" []
     (rr/resource-response "login.html" {:root "public"}))
   (GET "/chat" []
     (rr/resource-response "chat.html" {:root "public"})))

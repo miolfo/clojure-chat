@@ -8,5 +8,13 @@
               [ajax.formats :refer [raw-response-format]]
               [ajax.core :refer [GET POST]]))
 
+(defn login-clicked [evt]
+    (.preventDefault evt)
+    (.setItem js/localStorage "username" (ef/from "#username" (ef/get-prop :value)))
+    (set! (.-location js/window) "/chat"))
+
 (defn ^export init []
-    (.log js/console "Initializing login (not yet implemented)"))
+    ;for using localstorage use (.log js/console js/localStorage)
+    (ef/at "#submit-login" (ev/listen
+                            :click
+                            login-clicked)))
