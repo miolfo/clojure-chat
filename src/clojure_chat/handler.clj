@@ -13,7 +13,7 @@
 
 (defn parse-message-string []
   (let [messages (get-messages)]
-  (clojure.string/join "<br>" (map #(str (get-in messages [% :sender]) ": " (get-in messages [% :message])) (keys messages)))))
+    (clojure.string/join "<br>" (map #(str (get-in messages [% :sender]) ": " (get-in messages [% :message])) (keys messages)))))
 
 (defn send-message [request]
   (str (:multipart-params request)))
@@ -33,6 +33,6 @@
 (def app
   (routes (-> html-routes)
           (-> api-routes
-            (ring-json/wrap-json-response)
-            (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false)))))
+              (ring-json/wrap-json-response)
+              (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false)))))
 
