@@ -4,14 +4,16 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.anti-forgery :refer :all]
             [ring.middleware.json :as ring-json]
-            [ring.util.response :as rr]))
+            [ring.util.response :as rr]
+            [clj-http.client :as client]
+            [clojure.data.json :as json]))
 
 (defn get-messages []
-  [{:sender "Hessu Hopo" :message "Hello world"}
-  {:sender "Mikki Hiiri" :message "No morjens vaa"}])
+  (json/read-str (:body (client/get (slurp "messages-url.txt"))) :key-fn keyword))
 
 (defn parse-message-string []
-  (clojure.string/join "<br>" (map #(str (:sender %) ": " (:message %)) (get-messages))))
+  (let [messages (get-messages)]
+  (clojure.string/join "<br>" (map #(str (get-in messages [% :sender]) ": " (get-in messages [% :message])) (keys messages)))))
 
 (defn send-message [request]
   (str (:multipart-params request)))
@@ -33,3 +35,4 @@
           (-> api-routes
             (ring-json/wrap-json-response)
             (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false)))))
+

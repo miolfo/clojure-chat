@@ -11,7 +11,9 @@
                  [org.clojure/core.async "0.4.474"]
                  [com.cemerick/piggieback "0.2.2"]
                  [enfocus "2.1.1"]
-                 [cljs-ajax "0.7.3"]]
+                 [cljs-ajax "0.7.3"]
+                 [clj-http "3.9.0"]
+                 [org.clojure/data.json "0.2.6"]]
   :plugins [
             [lein-ring "0.9.7"]
             [lein-cljsbuild "1.1.7"]]
