@@ -22,12 +22,17 @@
   (let [username (.getItem js/localStorage "username")]
     (ef/at "#welcome-message" (ef/content (str "Welcome " username)))))
 
+(defn username-to-hidden-field []
+  (let [username (.getItem js/localStorage "username")]
+    (ef/at "#sender" (ef/set-form-input username))))
+
 (defn ^:export init []
   (repl/connect "http://localhost:9000/repl")
   (go
     (let [response (<! (http/get "/messages"))
       body (:body response)]
       (handle-welcome-message)
+      (username-to-hidden-field)
       (ef/at "#messages" (ef/content (str body))
       (ef/at "#submit-message" (ev/listen
                                 :click
