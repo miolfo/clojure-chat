@@ -13,7 +13,9 @@
                  [enfocus "2.1.1"]
                  [cljs-ajax "0.7.3"]
                  [clj-http "3.9.0"]
-                 [org.clojure/data.json "0.2.6"]]
+                 [org.clojure/data.json "0.2.6"]
+                 [org.clojure/java.jdbc "0.7.6"]
+                 [org.xerial/sqlite-jdbc "3.21.0"]]
   :plugins [
             [lein-ring "0.9.7"]
             [lein-cljsbuild "1.1.7"]]

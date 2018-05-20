@@ -6,7 +6,8 @@
             [ring.middleware.json :as ring-json]
             [ring.util.response :as rr]
             [clj-http.client :as client]
-            [clojure.data.json :as json]))
+            [clojure.data.json :as json]
+            [clojure.java.jdbc :as jdbc]))
 
 (defn get-messages []
   (json/read-str (:body (client/get (slurp "messages-url.txt"))) :key-fn keyword))

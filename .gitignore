@@ -13,3 +13,4 @@ pom.xml.asc
 /.cljs_rhino_repl
 resources/public/main.js
 messages-url.txt
+chat.db
