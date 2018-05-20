@@ -19,7 +19,8 @@
   :plugins [
             [lein-ring "0.9.7"]
             [lein-cljsbuild "1.1.7"]]
-  :ring {:handler clojure-chat.handler/app}
+  :ring {:handler clojure-chat.handler/app
+         :init clojure-chat.handler/init-chat}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}}

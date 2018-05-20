@@ -1,5 +1,6 @@
 (ns clojure-chat.handler
-  (:require [compojure.core :refer :all]
+  (:require [clojure-chat.db :as db]
+            [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.anti-forgery :refer :all]
@@ -18,7 +19,7 @@
 
 (defn send-message [request]
   (client/post (slurp "messages-url.txt") {:form-params (:multipart-params request) :content-type :json}))
-          
+
 (defroutes api-routes
   (GET "/messages" []
     (rr/response (parse-message-string)))
@@ -36,3 +37,6 @@
           (-> api-routes
               (ring-json/wrap-json-response)
               (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false)))))
+
+(defn init-chat []
+  (db/init-db))
